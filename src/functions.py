@@ -1,7 +1,6 @@
 from numba import jit
 import numpy as np
 
-@jit(nopython=True, fastmath=True)
 def createHist(x, nbins):
     import numpy as np
     minX    = min(x)
@@ -16,10 +15,16 @@ def createHist(x, nbins):
         hist[bin] = len(x[mask])
     return hist
 
+
+@jit(nopython=True, fastmath=True)
+def f(x, x0, gamma):
+    return (x0-x)/gamma
+
+
+@jit(nopython=True, fastmath=True)
 def calcTraj(x, D, Nwalkers, norm, deltaTime, time, L, a, b, x0):
-    gamma   = 1e3
-    f       = - (x - x0)/gamma
-    x      += np.random.normal(0., D, Nwalkers) * norm * deltaTime + f
+    gamma   = 1.e7
+    x      += np.random.normal(0., D, Nwalkers) * norm * deltaTime + f(x, x0, gamma)
     # Periodic Boundry Conditions
     mask    = x < a
     x[mask]+= L

@@ -2,21 +2,21 @@ from src.functions import *
 import numpy as np
 import matplotlib.pyplot as plt
 import imageio
-steps       = 30
-counts      = 2000
-Nwalkers    = 10000
+steps       = 20
+counts      = 4000
+Nwalkers    = 1000
 x0          = 0.
 D           = 1.
 norm        = 1./np.sqrt(2 * D * np.pi)
 deltaTime   = 1e-2
 time        = 0.
-nbins       = 101
+nbins       = 51
 
 x           = np.zeros(Nwalkers)
 
 # Bounds for periodic condition
-a           =-5.
-b           = 5.
+a           =-2.
+b           = 2.
 L           = b - a
 files       = []
 q           = 0
